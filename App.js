@@ -1,13 +1,35 @@
 import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React, {useState} from 'react';
+
+import {StyleSheet, Text, View, SafeAreaView } from 'react-native';
+
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+
+//Pages - Screens
+import Login from './pages/Login';
+import SignUp from './pages/SignUp';
+
+import {getUser, logout} from './services/tokenService'
+
+const AuthStack = createStackNavigator();
 
 export default function App() {
+  
+
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <NavigationContainer>
+      <AuthStack.Navigator>
+        <AuthStack.Screen name='Login' component={Login} />
+        <AuthStack.Screen name='SignUp' component={SignUp} />
+      </AuthStack.Navigator>
+    </NavigationContainer>
+
+    // <SafeAreaView style={styles.container}>
+    //   <StatusBar style="auto" />
+    //   <Login />
+
+    // </SafeAreaView>
   );
 }
 
@@ -19,3 +41,4 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
 });
+
