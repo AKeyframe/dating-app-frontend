@@ -3,12 +3,11 @@ import {View, StyleSheet, Text, TextInput, Button, TouchableOpacity} from 'react
 import Styles from '../Styles';
 
 
-export default function Profile(props){
-    console.log(props.profile)
+export default function Settings(props){
+
     return(
         <View style={Styles.container}>
-            <Text>Profile Page</Text>
-            <Text>{props.profile[0].user}</Text>
+            <Text>Settings</Text>
         </View>
     );
 }

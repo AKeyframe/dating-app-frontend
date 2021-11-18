@@ -1,11 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {View, StyleSheet, Text, TextInput, Button, TouchableOpacity} from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { CurrentRenderContext, NavigationContainer } from '@react-navigation/native';
 
-import {getUser, login, logout} from '../services/userService';
-
+import { getUser, login, logout} from '../services/userService';
 
 import Home from './Home';
 
@@ -13,15 +12,11 @@ import styles from '../Styles';
 
 export default function Login(props){
     //getUser()
-    const [userState, setUserState] = useState({user: getUser()});
-
-    function handleSignupOrLogin(){
-        setUserState({user: getUser()});
-      }
+    
       
-      function handleLogout(){
+    function handleLogout(){
         logout(); //userService
-        setUserState({user: null});
+        props.setUserState({user: null});
         setName('');
         setPass('');
     }
@@ -41,7 +36,7 @@ export default function Login(props){
         console.log('handle login')
         try {
             await login({username: name, pw: pass});
-            handleSignupOrLogin();
+            props.handleSignupOrLogin();
 
         } catch (err) {
             // Use a modal or toast in your apps instead of alert
@@ -51,20 +46,21 @@ export default function Login(props){
 
     function handleLogout(){
         logout();
-        setUserState({user: null});
+        props.setUserState({user: null});
         setName('');
         setPass('');
     }
 
     function handleSignUp(){
-        props.navigation.push('SignUp', {handleSignupOrLogin: handleSignupOrLogin()});
+        props.navigation.push('SignUp', {handleSignupOrLogin: props.handleSignupOrLogin()});
     }
     
-    let authCheck = userState.user ?
+    let authCheck = props.userState.user ?
       
             <Home 
-                userState={userState}
-                setUserState={setUserState}
+                userState={props.userState}
+                navigation={props.navigation}
+                setUserState={props.setUserState}
                 handleLogout={handleLogout}
             />
         
@@ -91,7 +87,8 @@ export default function Login(props){
                     textContentType='password'
                     autoCompleteType='password'
                     accessibilityLabel='password'
-                    returnKeyType='go'
+                    returnKeyType='next'
+                    onSubmitEditing={handleLogIn}
 
                 />
                 <View style={styles.button}>
@@ -103,12 +100,15 @@ export default function Login(props){
                         accessibilityLabel='Log In Button'
                     />
                 </View>
-                <View style={styles.inline}>
-                    <Text>Don't have an accounct? </Text>
-                    <TouchableOpacity
-                            onPress={handleSignUp}
-                            accessibilityLabel='Sign Up Button'
-                        > Sign up.</TouchableOpacity>
+                <View>
+                    <View style={styles.inline}>
+                        <Text>Don't have an accounct? </Text>
+                        <TouchableOpacity
+                                onPress={handleSignUp}
+                                accessibilityLabel='Sign Up Button'
+                            ><Text>Sign up.</Text>
+                        </TouchableOpacity>
+                    </View>
                 </View>
             </SafeAreaView>
 

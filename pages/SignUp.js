@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import {StyleSheet, Text, TextInput, Button, View, SafeAreaView } from 'react-native';
+import { createProfile } from '../services/profileService';
 
 import { signup } from '../services/userService'
 
@@ -24,7 +25,11 @@ export default function SignUp(props){
 
     async function handleSignUp(){
         try {
+            //Create the User
             await signup({email: email, username: name, password: pass});
+            //Create the Users Profile
+            await createProfile();
+            //Log them in
             props.handleSignupOrLogin();
             
             
@@ -32,6 +37,7 @@ export default function SignUp(props){
             // Invalid user data (probably duplicate email)
             setError(err.message);
         }
+
         props.navigation.pop();
     }
 
