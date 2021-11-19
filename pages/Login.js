@@ -11,9 +11,6 @@ import Home from './Home';
 import styles from '../Styles';
 
 export default function Login(props){
-    //getUser()
-    
-      
     function handleLogout(){
         logout(); //userService
         props.setUserState({user: null});
@@ -47,6 +44,8 @@ export default function Login(props){
     function handleLogout(){
         logout();
         props.setUserState({user: null});
+        props.setProfile(null);
+        props.setResults(null);
         setName('');
         setPass('');
     }
@@ -59,6 +58,9 @@ export default function Login(props){
       
             <Home 
                 userState={props.userState}
+                profile={props.profile}
+                results={props.results}
+                setResults={props.setResults}
                 navigation={props.navigation}
                 setUserState={props.setUserState}
                 handleLogout={handleLogout}

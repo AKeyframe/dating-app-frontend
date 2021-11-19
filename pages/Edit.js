@@ -9,9 +9,30 @@ import Styles from '../Styles';
 
 export default function Edit(props){
     
-    const [age, setAge] = useState('');
-    const [gender, setGender] = useState('');
-    const [about, setAbout] = useState('');
+    const [age, setAge] = useState(checkAge());
+    const [gender, setGender] = useState(checkGender());
+    const [about, setAbout] = useState(checkAbout());
+
+    function checkAge(){
+        if(props.profile[0].age){
+            return props.profile[0].age;
+        }
+        return 18;
+    }
+
+    function checkGender(){
+        if(props.profile[0].gender){
+            return props.profile[0].gender;
+        }
+        return 'female'
+    }
+
+    function checkAbout(){
+        if(props.profile[0].about){
+            return props.profile[0].about;
+        }
+        return '';
+    }
 
     
     const handleAbout = text => {setAbout(text);}
@@ -22,7 +43,8 @@ export default function Edit(props){
         console.log(about)
         console.log(props)
         const data = {age: age, gender: gender, about: about};
-        updateProfile(data, props.profile[0]._id)
+        updateProfile(data, props.profile[0]._id);
+        props.navigation.pop();
         props.navigation.push('Profile');
     }
 
@@ -32,6 +54,7 @@ export default function Edit(props){
                 <Text>Age</Text>
                 <Picker
                     age={age}
+                    selectedValue={age}
                     style={{ height: 50, width: 150 }}
                     onValueChange={(val, i) => setAge(val)}>
 
@@ -131,6 +154,7 @@ export default function Edit(props){
                 <Text>Gender</Text>
                 <Picker
                     gender={gender}
+                    selectedValue={gender}
                     style={{ height: 50, width: 150 }}
                     onValueChange={(val, i) => setGender(val)}>
 

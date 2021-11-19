@@ -48,7 +48,8 @@ export default StyleSheet.create({
       },
 
       cenText: {
-        textAlign: 'center'
+        textAlign: 'center',
+        marginVertical: 'auto'
       }
 
 

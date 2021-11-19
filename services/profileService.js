@@ -41,10 +41,6 @@ const getProfile = async () => {
 
     const response = await fetch(URL+'/'+id);
     const data = await response.json();
-    console.log('//////////////////////')
-    console.log(data);
-    
-
     return(data);
 }
 
@@ -53,11 +49,6 @@ function deleteProfile(){
 }
 
 async function updateProfile(data, id){
-   
-
-    console.log(data)
-    console.log(id)
-
     await fetch(URL +'/'+ id, {
         method: "PUT",
         headers: {
@@ -67,8 +58,10 @@ async function updateProfile(data, id){
       });
 }
 
-function getFilteredProfiles(){
-
+async function getFilteredProfiles(id){
+    const response = await fetch(URL+'/'+id+'/users')
+    const data = await response.json();
+    return(data);
 }
 
 function getMatches(){

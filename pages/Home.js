@@ -13,19 +13,23 @@ import { getProfile } from '../services/profileService';
 
 const Tabs = createBottomTabNavigator();
 
-export default function Home(props){
-
-    
-
+export default function Home(homeProps){
     return(
         <Tabs.Navigator >
             <Tabs.Screen 
                 name='Main'
                 options={{
                     headerShown: false
-                }}  
-                children={()=> <Main />} 
-            />
+                }}>
+
+                {props => <Main {...props} 
+                            profile={homeProps.profile}
+                            results={homeProps.results}
+                            setResults={homeProps.setResults}
+                            setResults={homeProps.setResults}
+                />}
+            </Tabs.Screen>
+
 
             <Tabs.Screen 
                 name='Matches'
@@ -44,10 +48,10 @@ export default function Home(props){
                 <Account 
                     // profile={props.profile}
                     // setProfile={setProfile}
-                    navigation={props.navigation}
-                    userState={props.userState}
-                    setUserState={props.setUserState}
-                    handleLogout={props.handleLogout} 
+                    navigation={homeProps.navigation}
+                    userState={homeProps.userState}
+                    setUserState={homeProps.setUserState}
+                    handleLogout={homeProps.handleLogout} 
                 />
             }/>
         </Tabs.Navigator>

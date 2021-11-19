@@ -9,7 +9,7 @@ export default function AccountTitle(props){
             <View style={Styles.navFlex}>
                 <View style={{width: 10}}/>
                 <View style={Styles.container}>
-                    <Text style={Styles.cenText}>Dating App Name</Text>
+                    <Text>Dating App Name</Text>
                 </View>
                 <View style={{width: 10}}/>
             </View>

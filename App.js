@@ -8,7 +8,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 
 //Services
 import { getUser } from './services/userService';
-import { getProfile } from './services/profileService';
+import { getFilteredProfiles, getProfile } from './services/profileService';
 
 //Components
 import AccountTitle from './components/AccountTitle';
@@ -17,6 +17,7 @@ import AccountTitle from './components/AccountTitle';
 import Login from './pages/Login';
 import SignUp from './pages/SignUp';
 import Profile from './pages/Profile';
+import Person from './pages/Person';
 import Edit from './pages/Edit';
 import Settings from './pages/Settings';
 
@@ -27,16 +28,23 @@ const AuthStack = createStackNavigator();
 export default function App() {
   const [userState, setUserState] = useState({user: getUser()});
   const [profile, setProfile] = useState();
-  
+  const [results, setResults] = useState();
+  const [header, setHeader] = useState(checkHeader());
+
     useEffect(async () => {
+        //if the user is logged in
         if(userState.user){
-          console.log('hello')
-          let p = await getProfile();
-          console.log(p);
-          // console.log(getProfile)
-              if(!profile){
-                  setProfile(p);
-              }
+          //Get the Users profile and set it to state
+          let p = await getProfile();          
+          let r = await getFilteredProfiles(p[0]._id);
+          if(!profile){
+            setProfile(p);
+          }
+          if(!results){
+            setResults(r);
+            
+
+          }
         }
     }, [userState]);
 
@@ -45,6 +53,12 @@ export default function App() {
       setUserState({user: getUser()});
   } 
 
+  function checkHeader(){
+    if(userState.user){
+      return false;
+    }
+    return true;
+  }
 
   return (
       <NavigationContainer>
@@ -52,13 +66,17 @@ export default function App() {
         <AuthStack.Screen 
             name='Login'
             options={{
+              headerShown: header,
               headerTitle: (props) => <AccountTitle {...props} />
               
             }}>
             {props => <Login {...props} 
-                        profile={profile}
                         userState={userState}
                         setUserState={setUserState}
+                        profile={profile}
+                        setProfile={setProfile}
+                        results={results}
+                        setResults={setResults}
                         handleSignupOrLogin={handleSignupOrLogin}
                       />}
             
@@ -83,6 +101,18 @@ export default function App() {
           </AuthStack.Screen>
 
           <AuthStack.Screen 
+            name='Person'
+            options={{
+              headerTitle: (props) => <AccountTitle {...props} />
+              
+            }}>
+            {props => <Person {...props} />}
+            
+          </AuthStack.Screen>
+
+
+
+          <AuthStack.Screen 
             name='Edit'
             options={{
               headerTitle: (props) => <AccountTitle {...props} />
@@ -91,13 +121,18 @@ export default function App() {
             {props => <Edit {...props} profile={profile} />}
             
           </AuthStack.Screen>
-          <AuthStack.Screen
+
+          <AuthStack.Screen 
             name='Settings'
-            component={Settings}
             options={{
               headerTitle: (props) => <AccountTitle {...props} />
-            }}
-          />
+              
+            }}>
+            {props => <Settings {...props} 
+                        profile={profile} 
+                        setProfile={setProfile}/>}
+            
+          </AuthStack.Screen>
 
 
         </AuthStack.Navigator>
