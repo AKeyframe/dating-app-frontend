@@ -1,5 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useRef} from 'react';
 
 import {StyleSheet, Text, View, SafeAreaView } from 'react-native';
 
@@ -31,12 +31,19 @@ export default function App() {
   const [results, setResults] = useState();
   const [header, setHeader] = useState(checkHeader());
 
+  const [person, setPerson] = useState(0);
+
     useEffect(async () => {
         //if the user is logged in
+        console.log('hi')
+        console.log(person)
         if(userState.user){
           //Get the Users profile and set it to state
           let p = await getProfile();          
           let r = await getFilteredProfiles(p[0]._id);
+          console.log('=================')
+          console.log(p)
+          console.log(r)
           if(!profile){
             setProfile(p);
           }
@@ -77,6 +84,8 @@ export default function App() {
                         setProfile={setProfile}
                         results={results}
                         setResults={setResults}
+                        person={person}
+                        setPerson={setPerson}
                         handleSignupOrLogin={handleSignupOrLogin}
                       />}
             
@@ -106,7 +115,11 @@ export default function App() {
               headerTitle: (props) => <AccountTitle {...props} />
               
             }}>
-            {props => <Person {...props} />}
+            {props => <Person {...props} 
+                          results={results}
+                          setResults={setResults}
+                          person={person}
+                      />}
             
           </AuthStack.Screen>
 

@@ -58,11 +58,13 @@ export default function Login(props){
       
             <Home 
                 userState={props.userState}
+                setUserState={props.setUserState}
                 profile={props.profile}
                 results={props.results}
                 setResults={props.setResults}
                 navigation={props.navigation}
-                setUserState={props.setUserState}
+                person={props.person}
+                setPerson={props.setPerson}
                 handleLogout={handleLogout}
             />
         

@@ -1,5 +1,8 @@
 import React from 'react';
-import {StyleSheet} from 'react-native';
+import {StyleSheet, Dimensions} from 'react-native';
+
+const SCREEN_HEIGHT = Dimensions.get('window').height;
+const SCREEN_WIDTH = Dimensions.get('window').width;
 
 export default StyleSheet.create({
     navFlex: {
@@ -14,6 +17,14 @@ export default StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
       },
+      mainContainer: {
+        flex: 1,
+        backgroundColor: '#fff',
+        alignItems: 'center',
+        justifyContent: 'center',
+        borderRadius: 20,
+        borderWidth: 1
+      },
   
       input: {
           width: 100,
@@ -23,6 +34,11 @@ export default StyleSheet.create({
           borderWidth: 1,
           
       },
+      textArea: {
+          width: SCREEN_WIDTH-50,
+          borderWidth: 1
+      },
+
       button: {
           width: 100,
           height: 30,

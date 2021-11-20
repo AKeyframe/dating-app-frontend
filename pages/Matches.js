@@ -6,7 +6,7 @@ import Styles from '../Styles';
 export default function Matches(props){
     return(
         <View style={Styles.container}>
-            <Text>Matches Page</Text>
+            <Text style={{fontSize: 26}}>No matches yet</Text>
         </View>
     );
 }

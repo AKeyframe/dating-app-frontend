@@ -30,57 +30,83 @@ export default function Main(props) {
     { id: '4', uri: four },
     { id: '5', uri: five },
   ]
-  const [filteredProfiles, setFilteredProfiles] = useState();
-  const [like, setLike] = useState([]);
-  const [dislike, setDislike] = useState([]);
-
+ 
   function handleLike() {
-
+    props.setResults(prev => {
+      prev.pop();
+      return [...prev];
+    });
   }
 
   function handleDislike() {
-
+      props.setResults(prev => {
+        prev.pop();
+        return [...prev];
+      });
   }
 
-  function toThisProfile(){
-    console.log('hi')
+  function toThisProfile(key){
+    props.setPerson(key);
     props.navigation.push('Person');
+    
   }
  
   function renderFilterProfiles() {
-    return images.map((prof, i) => {
-        return(<Animated.View
-          key={i}
-          
-          style={[
-            {
-              height: SCREEN_HEIGHT - 205,
-              width: SCREEN_WIDTH,
-              position: 'absolute',
-              padding: 5,
+    if(props.results){
+      if(props.results.length >= 1){
+        return props.results.map((prof, i) => {
+            console.log(prof);
+            return(<Animated.View
+              key={i}
               
-            }
-          ]}
-        >
-          <View style={Styles.container}>
-              <Text style={Styles.cenText}>Different Profile here</Text>
+              style={[
+                {
+                  height: SCREEN_HEIGHT - 205,
+                  width: SCREEN_WIDTH,
+                  position: 'absolute',
+                  padding: 5,
+                  
+                }
+              ]}
+            >
+              <View  style={Styles.mainContainer}>
+                  <TouchableOpacity onPress={() => toThisProfile(prof)}>
+                    <Text>{prof.first} {prof.age}</Text>
+                    <Text>{prof.education}</Text>
+                    <Text>{prof.job}</Text>
+                  </TouchableOpacity>
+              </View>
+              {/*For when I have images working on mongodb */}
+              {/* <Image
+                style={{
+                  flex: 1,
+                  height: null,
+                  width: null,
+                  resizeMode: "cover",
+                  borderRadius: 20,
+                  
+                }}
+                source={prof.uri}
+              
+              /> */}
+            </Animated.View>
+          );
+        });
+      } else {
+        return(
+          <View style={{flex: 1, 
+                        alignItems: 'center',
+                        height: SCREEN_HEIGHT - 205,
+                        width: SCREEN_WIDTH,
+                        position: 'absolute',
+                        padding: 5,
+                      }}>
+
+              <Text style={Styles.cenText}>No more people meeting your criteria</Text>
           </View>
-          {/*For when I have images working on mongodb */}
-          {/* <Image
-            style={{
-              flex: 1,
-              height: null,
-              width: null,
-              resizeMode: "cover",
-              borderRadius: 20,
-              
-            }}
-            source={prof.uri}
-           
-          /> */}
-        </Animated.View>
-      );
-    });      
+        );
+      }    
+    }  
   }
 
 
@@ -106,12 +132,14 @@ export default function Main(props) {
                 marginHorizontal: 40 
         }}>
           <TouchableOpacity
+            onPress={handleDislike}
             style={{
               height: 100,
               width: 100,
               borderRadius: 50,
+              borderWidth: 1,
               margin: 3,
-              backgroundColor: '#DC143C'
+              // backgroundColor: '#DC143C'
             }}><Text style={Styles.cenText}>Red</Text></TouchableOpacity>
 
         </View>
@@ -122,12 +150,14 @@ export default function Main(props) {
                 marginHorizontal: 40 
         }}>
           <TouchableOpacity
+            onPress={handleLike}
             style={{
               height: 100,
               width: 100,
               borderRadius: 50,
+              borderWidth: 1,
               margin: 3,
-              backgroundColor: '#32CD32'
+              // backgroundColor: '#32CD32'
             }}><Text style={Styles.cenText}>Green</Text></TouchableOpacity>
         </View>
 

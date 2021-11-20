@@ -70,7 +70,7 @@ export default function Settings(props){
                         selectedValue={interest}
                         style={{ height: 50, width: 150 }}
                         onValueChange={(val, i) => setInterest(val)}>
-
+                            
                             <Picker.Item label="Men" value="men" />
                             <Picker.Item label="Women" value="women" />
                             <Picker.Item label="Everyone" value="everyone" />

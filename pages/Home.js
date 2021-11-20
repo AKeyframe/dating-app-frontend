@@ -14,6 +14,7 @@ import { getProfile } from '../services/profileService';
 const Tabs = createBottomTabNavigator();
 
 export default function Home(homeProps){
+
     return(
         <Tabs.Navigator >
             <Tabs.Screen 
@@ -27,6 +28,8 @@ export default function Home(homeProps){
                             results={homeProps.results}
                             setResults={homeProps.setResults}
                             setResults={homeProps.setResults}
+                            person={homeProps.person}
+                            setPerson={homeProps.setPerson}
                 />}
             </Tabs.Screen>
 

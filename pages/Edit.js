@@ -9,9 +9,19 @@ import Styles from '../Styles';
 
 export default function Edit(props){
     
+    const [first, setFirst] = useState(checkFirst());
     const [age, setAge] = useState(checkAge());
     const [gender, setGender] = useState(checkGender());
+    const [education, setEducation] = useState(checkEducation());
+    const [job, setJob] = useState(checkJob());
     const [about, setAbout] = useState(checkAbout());
+
+    function checkFirst(){
+        if(props.profile[0].first){
+            return props.profile[0].first;
+        }
+        return 'First Name'
+    }
 
     function checkAge(){
         if(props.profile[0].age){
@@ -27,6 +37,20 @@ export default function Edit(props){
         return 'female'
     }
 
+    function checkEducation(){
+        if(props.profile[0].education){
+            return props.profile[0].education;
+        }
+        return ''
+    }
+
+    function checkJob(){
+        if(props.profile[0].job){
+            return props.profile[0].job;
+        }
+        return ''
+    }
+
     function checkAbout(){
         if(props.profile[0].about){
             return props.profile[0].about;
@@ -35,21 +59,41 @@ export default function Edit(props){
     }
 
     
+    const handleFirst = text => {setFirst(text);}
+    const handleEducation = text => {setEducation(text);}
+    const handleJob = text => {setJob(text);}
     const handleAbout = text => {setAbout(text);}
+    
 
     function handleSubmit(){
+        console.log(first)
         console.log(age)
         console.log(gender)
+        console.log(education)
+        console.log(job)
         console.log(about)
         console.log(props)
-        const data = {age: age, gender: gender, about: about};
+        const data = {first: first, age: age, gender: gender,
+                        education: education, job: job, about: about};
         updateProfile(data, props.profile[0]._id);
         props.navigation.pop();
         props.navigation.push('Profile');
     }
 
     return(
-        <View>
+        <View style={Styles.container}>
+            <View>
+                <Text>First Name</Text>
+                <TextInput
+                    style={Styles.input} 
+                    value={first}
+                    onChangeText={handleFirst}
+                    placeholder='First Name'
+                    accessibilityLabel='Input for your first name'
+                    returnKeyType='next'
+                />
+            </View>
+
             <View>
                 <Text>Age</Text>
                 <Picker
@@ -165,16 +209,38 @@ export default function Edit(props){
                     <Picker.Item label="Genderfluid" value="genderfluid" />
                     <Picker.Item label="Genderqueer" value="genderqueer" />
                     <Picker.Item label="Agender" value="agender" />
-                    
-                    
-                    
+                </Picker>
+            </View>
 
-            </Picker>
+            <View>
+                <Text>Education</Text>
+                <TextInput 
+                    style={Styles.input}
+                    value={education}
+                    onChangeText={handleEducation}
+                    placeholder='Education'
+                    accessibilityLabel='Input for your School or Education'
+                    returnKeyType='next'
+                />
+            </View>
+
+            <View>
+                <Text>Occupation</Text>
+                <TextInput 
+                    style={Styles.input}
+                    value={job}
+                    onChangeText={handleJob}
+                    placeholder='Occupation'
+                    accessibilityLabel='Input for where you work'
+                    returnKeyType='next'
+                
+                />
             </View>
 
             <View>
                 <Text>Tell us about yourself</Text>
                 <TextInput 
+                    style={Styles.textArea}
                     value={about}
                     onChangeText={handleAbout}
                     placeholder='I am...'
