@@ -58,6 +58,39 @@ async function updateProfile(data, id){
       });
 }
 
+//retrive the profile at ownerId
+//then push the userId to the interactions.met array
+async function dislikeUser(ownerId, userId){
+    userId = {id: userId}    
+    await fetch(URL +'/dislike/'+ownerId, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "Application/json",
+        },
+        body: JSON.stringify(userId),
+      });
+}
+
+
+//retrive the profile at userId
+//then push the ownerId to the interactions.likedBy array
+async function likeUser(ownerId, userId){
+    ownerId = {id: ownerId}
+    await fetch(URL +'/like/'+userId, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "Application/json",
+        },
+        body: JSON.stringify(ownerId),
+      });
+}
+
+async function getWhoLikedYou(id){
+    const response = await fetch(URL+'/likedBy/'+id);
+    const data = await response.json();
+    return(data);
+}
+
 async function getFilteredProfiles(id){
     const response = await fetch(URL+'/'+id+'/users')
     const data = await response.json();
@@ -75,5 +108,9 @@ export {
     createProfile,
     getProfile,
     updateProfile,
+    likeUser,
+    dislikeUser,
+    getWhoLikedYou,
     getFilteredProfiles,
+    
 }

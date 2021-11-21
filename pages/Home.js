@@ -10,6 +10,7 @@ import Account from './Account';
 
 import styles from "../Styles";
 import { getProfile } from '../services/profileService';
+import Likes from './Likes';
 
 const Tabs = createBottomTabNavigator();
 
@@ -27,12 +28,22 @@ export default function Home(homeProps){
                             profile={homeProps.profile}
                             results={homeProps.results}
                             setResults={homeProps.setResults}
-                            setResults={homeProps.setResults}
                             person={homeProps.person}
                             setPerson={homeProps.setPerson}
                 />}
             </Tabs.Screen>
 
+            <Tabs.Screen 
+                name='Likes'
+                options={{
+                    headerShown: false
+                }}>
+
+                {props => <Likes {...props} 
+                            profile={homeProps.profile}
+                            setProfile={homeProps.setProfile}
+                />}
+            </Tabs.Screen>
 
             <Tabs.Screen 
                 name='Matches'

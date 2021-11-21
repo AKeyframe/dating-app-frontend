@@ -27,16 +27,29 @@ export default StyleSheet.create({
       },
   
       input: {
-          width: 100,
-          height: 30,
-          margin: 10,
-          padding: 5,
-          borderWidth: 1,
+          width: 150,
+          height: 32,
+          marginHorizontal: 5,
+          borderWidth: .1,
+          borderRadius: 10,
+
+          textAlign: 'center',
           
       },
+      picker: {
+        width: 150,
+        height: 32,
+        margin: 5,
+        padding: 3,
+        borderWidth: 1,
+        borderRadius: 10,
+        textAlign: 'center'
+      },
       textArea: {
-          width: SCREEN_WIDTH-50,
-          borderWidth: 1
+          width: SCREEN_WIDTH-40,
+          padding: 5,
+          borderWidth: .1,
+          borderRadius: 10
       },
 
       button: {
@@ -47,7 +60,7 @@ export default StyleSheet.create({
       },
 
       toButton: {
-        margin: 10
+        margin: 15
       },
 
       intextButton: {

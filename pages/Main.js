@@ -6,6 +6,9 @@ import {
                                       } from 'react-native';
 import Styles from '../Styles';
 
+//Services
+import { dislikeUser, likeUser } from '../services/profileService';
+
 //temp
 import one from '../assets/testing-images/poly-3295856_1280.png';
 import two from '../assets/testing-images/lowPoly-art-img.jpg';
@@ -32,6 +35,7 @@ export default function Main(props) {
   ]
  
   function handleLike() {
+    likeUser(props.profile[0]._id, props.results[(props.results.length-1)]._id)
     props.setResults(prev => {
       prev.pop();
       return [...prev];
@@ -39,10 +43,11 @@ export default function Main(props) {
   }
 
   function handleDislike() {
-      props.setResults(prev => {
-        prev.pop();
-        return [...prev];
-      });
+    dislikeUser(props.profile[0]._id, props.results[(props.results.length-1)]._id)
+    props.setResults(prev => {
+      prev.pop();
+      return [...prev];
+    });
   }
 
   function toThisProfile(key){

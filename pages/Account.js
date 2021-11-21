@@ -31,20 +31,26 @@ export default function Account(props){
         
         }}>
             <View style={{
-                    flex: 1,
-                    width: 150,
-                    height: 150,
-                    juststifyContent: 'center',
+                    width: 200,
+                    height: 200,
+                    borderWidth:1,
+                    borderRadius: 25,
                     alignSelf: 'center',
-                    marginTop: 35,
-                    borderRadius: 50,
-                    borderWidth: 1,
+                    justifyContent: 'center',
+                    marginTop: 20,
                     backgroundColor: '#fff'
                 }}
-            ><Text>Thumbnail</Text>
+            >
+                <View style={{justifyContent: 'center', alignItems: 'center'}}>
+                    <Text style={{textAlign: 'center'}}>Thumbnail</Text>
+                </View>
             </View>
       
-            <View style={{flex: 1, alignItems: 'center'}}>
+            <View style={{
+                    flex: 1, 
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                }}>
                 
 
                 <TouchableOpacity 
