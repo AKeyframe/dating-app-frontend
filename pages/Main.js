@@ -107,7 +107,12 @@ export default function Main(props) {
                         padding: 5,
                       }}>
 
-              <Text style={Styles.cenText}>No more people meeting your criteria</Text>
+              <Text style={{
+                        textAlign: 'center',
+                        marginVertical: 'auto',
+                        fontSize: 24
+                }}
+              >No one meets your criteria</Text>
           </View>
         );
       }    

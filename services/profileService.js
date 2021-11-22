@@ -85,8 +85,15 @@ async function likeUser(ownerId, userId){
       });
 }
 
+//Getting the id's in likes populated 
 async function getWhoLikedYou(id){
     const response = await fetch(URL+'/likedBy/'+id);
+    const data = await response.json();
+    return(data);
+}
+
+async function getYourMatches(id){
+    const response = await fetch(URL+'/matches/'+id);
     const data = await response.json();
     return(data);
 }

@@ -85,7 +85,7 @@ export default function Edit(props){
     }
 
     return(
-        <SafeAreaView style={{backgroundColor: '#fff'}}>
+        <View style={{backgroundColor: '#fff'}}>
             <View Style={{
                     flex: 1,
                     alignItems: 'center',
@@ -350,6 +350,6 @@ export default function Edit(props){
                     ><Text style={{fontSize: 28, padding: 5}}>Save Changes</Text></TouchableOpacity>
                 </View>
             </View>
-        </SafeAreaView>
+        </View>
     );
 }

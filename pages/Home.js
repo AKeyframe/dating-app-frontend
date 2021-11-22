@@ -42,6 +42,9 @@ export default function Home(homeProps){
                 {props => <Likes {...props} 
                             profile={homeProps.profile}
                             setProfile={homeProps.setProfile}
+                            person={homeProps.person}
+                            setPerson={homeProps.setPerson}
+                            navigation={homeProps.navigation}
                 />}
             </Tabs.Screen>
 
@@ -49,9 +52,16 @@ export default function Home(homeProps){
                 name='Matches'
                 options={{
                     headerShown: false
-                }} 
-                children={() => <Matches />} 
-            />
+                }}>
+
+                {props => <Matches {...props} 
+                            profile={homeProps.profile}
+                            setProfile={homeProps.setProfile}
+                            person={homeProps.person}
+                            setPerson={homeProps.setPerson}
+                            navigation={homeProps.navigation}
+                />}
+            </Tabs.Screen>
             
             <Tabs.Screen 
                 name='Account' 
