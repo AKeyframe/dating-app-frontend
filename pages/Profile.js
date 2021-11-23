@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import {View, StyleSheet, Text, TextInput, Button, TouchableOpacity, Dimensions} from 'react-native';
-import Styles from '../Styles';
+import Styles, {bgColor, bgSecColor, hiColor, textColor} from '../Styles';
 
 
 export default function Profile(props){
@@ -8,10 +8,8 @@ export default function Profile(props){
     const SCREEN_WIDTH = Dimensions.get('window').width;
 
 
-    console.log(props.profile)
     return(
-        <View style={{flex: 1, backgroundColor: '#fff'}}>
-            <View style={{ height: 3 }} />
+        <View style={{flex: 1, backgroundColor: bgColor}}>
             <View>
                 <TouchableOpacity 
                     style={{
@@ -19,44 +17,98 @@ export default function Profile(props){
                         width: SCREEN_WIDTH-10,
                         height: SCREEN_HEIGHT-300, 
                         borderRadius: 30,
-                        borderWidth: 1,
-                        margin: 5 
+                        borderColor: hiColor,
+                        backgroundColor: bgSecColor,
+                        margin: 5,
+                        marginTop: 15 
                     }}
                 ><Text style={Styles.cenText}>Images Here</Text></TouchableOpacity>
             </View>
 
-            <View style={{  flex: 1, 
-                            flexDirection: 'row',
-                        }}>
-                <View>
-                    <Text>
-                        <Text style={{
-                                fontSize: 48,
-                                margin: 5,
-                                marginLeft: 15
-                            }}
-                        >{props.profile[0].first}</Text>
+            <View style={{
+                    flex: -1,
+                    flexDirection: 'row',
+                    
+                }}
+            >
+                <View style={{  flex: -1, 
+                                flexDirection: 'row',
+                                
+                            }}>
+                    <View style={{flex: -1}}>
+                        <Text>
+                            <Text style={{
+                                    fontSize: 48,
+                                    margin: 5,
+                                    marginLeft: 15,
+                                    color: textColor
+                                }}
+                            >{props.profile[0].first}</Text>
 
-                        <Text style={{
-                                fontSize: 36,
-                                margin: 5,
-                                marginLeft: 15
-                            }}
-                        >{props.profile[0].age}</Text>
-                    </Text>
-
-                    <Text style={{marginTop:3, marginLeft:20}}>
-                        {props.profile[0].education}
-                    </Text>
-
-                    <Text style={{marginTop:3, marginLeft:20}}>
-                        {props.profile[0].job}
-                    </Text>
-
+                            <Text style={{
+                                    fontSize: 36,
+                                    margin: 5,
+                                    marginLeft: 15,
+                                    color: textColor
+                                }}
+                            >{props.profile[0].age}</Text>
+                        </Text>
+                    </View>
+                </View>
+                <View style={{
+                        flex: 1,
+                        alignItems: 'center',
+                        justifyConetent: 'center',
+                    }}
+                >   
                     <View style={{
-                            flex: 1, 
+                            flex: -1, 
+                            justifyConetent: 'center',
+                            justifySelf: 'center',
+                            alignItems: 'center',
+                            alignSelf: 'center',
+
+                        }}
+                    >
+                        
+                            <Text style={{color: textColor, marginTop:16}}>
+                                {props.profile[0].education}
+                            </Text>
+                       
+                        
+                       
+                            <Text style={{color: textColor, marginTop:3}}>
+                                {props.profile[0].job}
+                            </Text>
+                        
+                    </View>
+                    
+                </View>
+            </View>
+
+            <View style={{
+                    flex: -1, 
+                    justifyConetent: 'center', 
+                    alignItems: 'center',
+                    marginTop: 10,
+                }}
+            >
+                <View style={{
+                        flex: -1, 
+                        justifySelf: 'center',
+                        alignSelf: 'center',
+                        
+                    }}
+                >
+                    <View style={{
+                            flex: -1, 
                             flexWrap: 'wrap',
-                            width: SCREEN_WIDTH
+                                
+                            width: SCREEN_WIDTH-20,
+                            borderRadius: 20,
+                            marginTop: 5,
+                            marginBottom: 20,
+                            backgroundColor: bgSecColor
                         }}
                     >
                         <Text style={{
@@ -64,7 +116,8 @@ export default function Profile(props){
                                 marginTop: 10,
                                 marginLeft: 20,
                                 marginRight: 20,
-                                marginBottom: 20
+                                marginBottom: 10,
+                                color: textColor
 
                             }}
                         >
@@ -72,11 +125,12 @@ export default function Profile(props){
                         </Text>
                     </View>
                 </View>
+            </View>
                 
-                <View>
+            <View>
                     
-                </View>
             </View>
         </View>
+        
     );
 }

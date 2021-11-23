@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import {View, StyleSheet, Text, TextInput, Button, Dimensions, TouchableOpacity} from 'react-native';
-import Styles from '../Styles';
+import {View, ScrollView, StyleSheet, Text, TextInput, Button, Dimensions, TouchableOpacity} from 'react-native';
+
+import Styles, { bgColor, bgSecColor, hiColor, textColor} from '../Styles';
 
 //Services
 import { getWhoLikedYou, updateProfile } from '../services/profileService';
@@ -11,12 +12,15 @@ export default function Likes(props){
     const SCREEN_WIDTH = Dimensions.get('window').width;
 
     const [likes, setLikes] = useState();
+    const [updateLikes, setUpdateLikes] = useState(0);
 
     useEffect(async () => {
         if(!likes){
             setLikes(await getLikes());
+        } else {
+            setLikes(prev => [...prev]);
         }
-    }, [likes]);
+    }, [updateLikes]);
 
 
 
@@ -27,8 +31,6 @@ export default function Likes(props){
     }
 
     function toProfile(i){
-        console.log('/////////////////////')
-        console.log(likes[i]);
         props.setPerson(likes[i])
         props.navigation.push('Person');
         
@@ -36,14 +38,28 @@ export default function Likes(props){
 
     function handleDislike(i){
         dislikeUser(props.profile[0]._id, likes[i]._id);
-        setLikes(prev => prev.splice(i, 1));
-        console.log(likes)
-        Likes(props)
+        setLikes(prev => prev.filter((user, iter) =>{
+            if(i === iter){
+                return false;
+            } else {
+                return user;
+            }
+        }));
+        
+        setUpdateLikes(prev => prev+1);
     }
 
     function handleLike(i){
         likeUser(props.profile[0]._id, likes[i]._id)
-        setLikes(prev => prev.splice(i, 1));
+        setLikes(prev => prev.filter((user, iter) =>{
+            if(i === iter){
+                return false;
+            } else {
+                return user;
+            }
+        }));
+        
+        setUpdateLikes(prev => prev+1);
         
     }
 
@@ -55,41 +71,49 @@ export default function Likes(props){
                 return likes.map((person, i) => {
                     return (
                         <View style={{
-                                flex: -1,
+                                flex: 1,
                                 alignItems: 'center',
                                 margin: 20
                             }}
                             key={i}
                         >
-                            <View style={{
-                                    flex: -1,
-                                    alignItems: 'center',
-                                    justifyContent: 'center',
-                                    width: 125,
-                                    height: 125,
-                                    borderWidth: 1,
-                                    borderRadius: 20
-                                }}
-                            >
-                                <Text>Thumbnail</Text>
-                            </View>
-                            <View style={{
+                            <TouchableOpacity onPress={() => toProfile(i)}>
+                                <View style={{
+                                        flex: -1,
+                                        alignItems: 'center',
+                                        justifyContent: 'center',
+                                        width: 125,
+                                        height: 125,
+                                        
+                                        borderRadius: 20,
+                                        backgroundColor: bgSecColor,
+                                    }}
+                                >
+                                    <Text style={{
+                                            color: textColor
+                                        }}
+                                    >Thumbnail</Text>
+                                </View>
+                                <View style={{
+                                    
+                                    }}
+                                >
                                 
-                                }}
-                            >
-                                <TouchableOpacity onPress={() => toProfile(i)}>
-                                    <Text>
+                                    <Text style={{textAlign: 'center'}}>
                                         <Text style={{
+                                                color: textColor,
                                                 fontSize: 28
                                             }}
                                         >{person.first} </Text>
+
                                         <Text style={{
+                                                color: textColor,
                                                 fontSize: 24
                                             }}
                                         >{person.age}</Text>
                                     </Text>
-                                </TouchableOpacity>
-                            </View>
+                                </View>
+                            </TouchableOpacity>
                             <View style={{
                                     flex: -1,
                                     flexDirection: 'row',
@@ -99,26 +123,38 @@ export default function Likes(props){
                             >
                                 <TouchableOpacity 
                                     style={{
+                                        width: 60,
                                         marginHorizontal: 10,
                                         padding: 3,
-                                        borderWidth: 1, 
+                                        backgroundColor: bgSecColor,
                                         borderRadius: 10
                                     }}
                                     onPress={() => handleDislike(i)}
                                 >
-                                    <Text style={{fontSize: 22}}>Pass</Text>
+                                    <Text style={{
+                                            color: textColor,
+                                            fontSize: 22,
+                                            textAlign: 'center'
+                                        }}
+                                    >Pass</Text>
                                 </TouchableOpacity>
                                 
                                 <TouchableOpacity
                                     style={{
+                                        width: 60,
                                         marginHorizontal: 10,
                                         padding: 3,
-                                        borderWidth: 1, 
+                                        backgroundColor: bgSecColor,
                                         borderRadius: 10
                                     }}
                                     onPress={() => handleLike(i)}
                                 >
-                                    <Text style={{fontSize: 22}}>Like</Text>
+                                    <Text style={{
+                                            color: hiColor,
+                                            fontSize: 22,
+                                            textAlign: 'center'
+                                        }}
+                                    >Like</Text>
                                 </TouchableOpacity>
                             </View>
 
@@ -129,6 +165,7 @@ export default function Likes(props){
                 return(
                     <View style={Styles.container}>
                         <Text style={{
+                                color: textColor,
                                 fontSize: 26,
                                 marginTop: SCREEN_HEIGHT/2.3,
                             }}
@@ -143,18 +180,22 @@ export default function Likes(props){
    
 
     return (
-        <View style={{flex: 1, backgroundColor: '#fff'}}>
-            <View style={{
-                    flex: -1,
-                    flexDirection: 'row',
+        <View style={{flex: 1, backgroundColor: bgColor}}>
+            <ScrollView style={{
+                    flex: 1,
+                    
+                    
+                    backgroundColor: bgColor
+                }}
+                contentContainerStyle={{
+                    
                     flexWrap: 'wrap',
                     alignItems: 'space-evenly',
                     justifyContent: 'space-evenly',
-                    backgroundColor: '#fff'
                 }}
             >
                 {displayLikes()}
-            </View>
+            </ScrollView>
         </View>
     );
 }

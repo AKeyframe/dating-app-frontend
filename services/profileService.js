@@ -94,7 +94,8 @@ async function getWhoLikedYou(id){
 
 async function getYourMatches(id){
     const response = await fetch(URL+'/matches/'+id);
-    const data = await response.json();
+    const fullData = await response.json();
+    const data = fullData.interactions.matches;
     return(data);
 }
 
@@ -118,6 +119,7 @@ export {
     likeUser,
     dislikeUser,
     getWhoLikedYou,
+    getYourMatches,
     getFilteredProfiles,
     
 }

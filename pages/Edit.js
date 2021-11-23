@@ -4,7 +4,7 @@ import {View, ScrollView, Text, TextInput,
         Picker, Dimensions            } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { updateProfile } from '../services/profileService';
-import Styles from '../Styles';
+import Styles, { bgColor, bgSecColor, hiColor, textColor } from '../Styles';
 
 
 
@@ -70,26 +70,20 @@ export default function Edit(props){
     
 
     function handleSubmit(){
-        console.log(first)
-        console.log(age)
-        console.log(gender)
-        console.log(education)
-        console.log(job)
-        console.log(about)
-        console.log(props)
         const data = {first: first, age: age, gender: gender,
                         education: education, job: job, about: about};
         updateProfile(data, props.profile[0]._id);
+        props.setUpdate(prev => prev+1);
         props.navigation.pop();
         props.navigation.push('Profile');
     }
 
     return(
-        <View style={{backgroundColor: '#fff'}}>
+        <View style={{backgroundColor: bgColor}}>
             <View Style={{
                     flex: 1,
                     alignItems: 'center',
-                    backgroundColor: '#fff'
+                    backgroundColor: bgColor
                 }}>
                 
                 <View style={{
@@ -97,9 +91,9 @@ export default function Edit(props){
                         alignSelf: 'center',
                         justifyContent: 'center',
                         marginTop: 20,
-                        borderWidth: 1,
+                        borderColor: hiColor,
                         borderRadius: 30,
-                        backgroundColor: '#fff',
+                        backgroundColor: bgSecColor,
                         width: SCREEN_WIDTH - 20,
                         height: SCREEN_HEIGHT -300
                     }}
@@ -109,17 +103,26 @@ export default function Edit(props){
                             alignItems: 'center'
                             }}
                     >
-                        <Text style={{textAlign: 'center'}}>Image Selector</Text>
+                        <Text style={{
+                                color: textColor,
+                                textAlign: 'center'
+                            }}
+                        >Image Selector</Text>
                     </View>
                 </View>
                 
                 <View style={{
                         flex: -1, 
                         alignItems: 'center',
-                        marginTop: 20
+                        marginTop: 20,
+                    
                     }}
                 >
-                    <Text style={{textAlign: 'center'}}>Gender</Text>
+                    <Text style={{
+                            color: textColor,
+                            textAlign: 'center'
+                        }}
+                    >Gender</Text>
                     <Picker
                         style={Styles.picker}
                         gender={gender}
@@ -143,7 +146,8 @@ export default function Edit(props){
                          flex: -1,
                          flexDirection: 'row',
                          justifyContent: 'space-evenly',
-                         marginTop: 5,
+                         marginTop: 20,
+                    
                     }}
                 >
 
@@ -152,7 +156,7 @@ export default function Edit(props){
                         }}
                     >
                         <Text style={{
-
+                                color: textColor,
                                 textAlign: 'center',
                                 marginBottom: 3
                             }}>First Name</Text>
@@ -169,9 +173,12 @@ export default function Edit(props){
 
                     <View>
                         <Text style={{
+                                color: textColor,
                                 textAlign: 'center',
                                 marginBottom: 3,
-                            }}>Age</Text>
+                            }}
+                        >Age</Text>
+
                         <Picker
                             style={Styles.picker}
                             age={age}
@@ -181,6 +188,9 @@ export default function Edit(props){
                                     marginRight: 3,
                                     borderWidth: 1,
                                     borderRadius: 10,
+                                    borderColor: hiColor,
+                                    backgroundColor: bgSecColor,
+                                    color: textColor,
                                    
                                     padding: 3,
                                     textAlign: 'center'
@@ -284,14 +294,21 @@ export default function Edit(props){
                         flex: -1,
                         flexDirection: 'row',
                         justifyContent: 'space-evenly',
-                        marginTop: 10,
+                        marginTop: 20,
+                       
                     }}
                 >
                     <View style={{
                             flex: -1,
                         }}
                     >
-                        <Text style={{textAlign: 'center', marginBottom: 3}}>Education</Text>
+                        <Text style={{
+                                color: textColor,
+                                textAlign: 'center', 
+                                marginBottom: 3
+                            }}
+                        >Education</Text>
+
                         <TextInput 
                             style={Styles.input}
                             value={education}
@@ -303,7 +320,13 @@ export default function Edit(props){
                     </View>
 
                     <View>
-                        <Text style={{textAlign: 'center', marginBottom: 3}}>Occupation</Text>
+                        <Text style={{
+                                color: textColor,
+                                textAlign: 'center', 
+                                marginBottom: 3
+                            }}
+                        >Occupation</Text>
+
                         <TextInput 
                             style={Styles.input}
                             value={job}
@@ -319,10 +342,10 @@ export default function Edit(props){
                 <View style={{
                         flex: -1,
                         alignItems: 'center',
-                        marginTop: 10,
+                        marginTop: 20,
                     }}
                 >
-                    <Text>Tell us about yourself</Text>
+                    <Text style={{color: textColor}}>Tell us about yourself</Text>
                     <TextInput 
                         style={Styles.textArea}
                         value={about}
@@ -338,16 +361,28 @@ export default function Edit(props){
                 <View style={{
                         flex: -1,
                         alignItems: 'center',
-                        marginVertical: 10,
+                        marginVertical: 15,
                     }}
                 ><TouchableOpacity
                         onPress={handleSubmit}
                         style={{
-                            borderWidth: 1, 
-                            borderRadius: 20
+                            backgroundColor: bgSecColor,
+                            borderWidth: 1,
+                            borderRadius: 20,
+                            borderColor: hiColor,
+                            width: 225
                         }}
                     
-                    ><Text style={{fontSize: 28, padding: 5}}>Save Changes</Text></TouchableOpacity>
+                    >
+                        <Text style={{
+                                color: textColor,
+                                fontSize: 28,
+                                textAlign: 'center', 
+                                padding: 5
+                            }}
+                        >Save Changes</Text>
+
+                    </TouchableOpacity>
                 </View>
             </View>
         </View>

@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
-import {StyleSheet, Text, TextInput, Button, View, SafeAreaView } from 'react-native';
+import {StyleSheet, Text, TextInput, TouchableOpacity, View, SafeAreaView } from 'react-native';
 import { createProfile } from '../services/profileService';
 
 import { signup } from '../services/userService'
+
+import Styles, {bgColor, bgSecColor, hiColor, textColor} from '../Styles';
 
 export default function SignUp(props){
 
@@ -42,74 +44,105 @@ export default function SignUp(props){
     }
 
     return(
-        <SafeAreaView style={styles.container}>
-            <Text>Email</Text>
-            <TextInput 
-                style={styles.input}
-                placeholder='Email'
-                value={email}
-                onChangeText={handleChangeEmail}
-                accessibilityLabel='Email Input'
-                returnKeyType='next'
-            />
+        <SafeAreaView style={Styles.container}>
+            <View style={{
+                    margin: 10,
+                }}
+            >
+                <Text style={{
+                        color: textColor,
+                        fontSize: 26,
+                        textAlign: 'center',
+                        margin: 3,
+                    }}
+                >Email</Text>
 
-            <Text>Username</Text>
-            <TextInput 
-                style={styles.input}
-                placeholder='Username'
-                value={name}
-                onChangeText={handleChangeName}
-                accessibilityLabel='User Name Input'
-                returnKeyType='next'
-            />
-
-            <Text>Password</Text>
-            <TextInput
-                style={styles.input}
-                placeholder='Password'
-                value={pass}
-                onChangeText={handleChangePass}
-                secureTextEntry={true}
-                textContentType='password'
-                autoCompleteType='password'
-                accessibilityLabel='password'
-                returnKeyType='next'
-
-            />
-
-            <View style={styles.button}>
-                <Button
-                    
-                    onPress={handleSignUp}
-                    title='Sign Up'
-                    accessibilityLabel='Sign Up Button'
+                <TextInput 
+                    style={Styles.input}
+                    placeholder='Email'
+                    value={email}
+                    onChangeText={handleChangeEmail}
+                    accessibilityLabel='Email Input'
+                    returnKeyType='next'
                 />
             </View>
+            
+            <View style={{
+                    margin: 10,
+                }}
+            >
+                <Text style={{
+                        color: textColor,
+                        fontSize: 26,
+                        textAlign: 'center',
+                        margin: 3,
+                    }}
+                >Username</Text>
+
+                <TextInput 
+                    style={Styles.input}
+                    placeholder='Username'
+                    value={name}
+                    onChangeText={handleChangeName}
+                    accessibilityLabel='User Name Input'
+                    returnKeyType='next'
+                />
+            </View>
+
+            <View style={{
+                    margin: 10,
+                }}
+            >
+                <Text style={{
+                        color: textColor,
+                        fontSize: 26,
+                        textAlign: 'center',
+                        margin: 3,
+                    }}
+                >Password</Text>
+
+                <TextInput
+                    style={Styles.input}
+                    placeholder='Password'
+                    value={pass}
+                    onChangeText={handleChangePass}
+                    secureTextEntry={true}
+                    textContentType='password'
+                    autoCompleteType='password'
+                    accessibilityLabel='password'
+                    returnKeyType='next'
+
+                />
+            </View>
+
+            <View style={{
+                        flex: -1,
+                        alignItems: 'center',
+                        marginVertical: 15,
+                    }}
+                ><TouchableOpacity
+                        onPress={handleSignUp}
+                        style={{
+                            backgroundColor: bgSecColor,
+                            borderWidth: 1,
+                            borderRadius: 20,
+                            borderColor: hiColor,
+                            width: 175,
+                            marginTop: 10,
+                        }}
+                    
+                    >
+                        <Text style={{
+                                color: textColor,
+                                fontSize: 28,
+                                textAlign: 'center', 
+                                padding: 5
+                            }}
+                        >Sign Up</Text>
+
+                    </TouchableOpacity>
+                </View>
             
         </SafeAreaView>
     );
 }
-
-const styles = StyleSheet.create({
-    container: {
-      flex: 1,
-      backgroundColor: '#fff',
-      alignItems: 'center',
-      justifyContent: 'center',
-    },
-
-    input: {
-        width: 100,
-        height: 30,
-        margin: 10,
-        padding: 5,
-        borderWidth: 1,
-        
-    },
-    button: {
-        width: 100,
-        height: 30,
-        margin: 10,
-        
-    }
-});

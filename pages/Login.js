@@ -8,7 +8,7 @@ import { getUser, login, logout} from '../services/userService';
 
 import Home from './Home';
 
-import styles from '../Styles';
+import styles, { bgColor, bgSecColor, hiColor, textColor } from '../Styles';
 
 export default function Login(props){
     function handleLogout(){
@@ -30,7 +30,6 @@ export default function Login(props){
     };
 
     async function handleLogIn(){
-        console.log('handle login')
         try {
             await login({username: name, pw: pass});
             props.handleSignupOrLogin();
@@ -65,13 +64,20 @@ export default function Login(props){
                 navigation={props.navigation}
                 person={props.person}
                 setPerson={props.setPerson}
+                setUpdate={props.setUpdate}
                 handleLogout={handleLogout}
             />
         
         :
        
             <SafeAreaView style={styles.container}>
-                <Text>Username</Text>
+                <Text style={{
+                        color: textColor,
+                        fontSize: 26,
+                        margin: 3,
+                    }}
+                >Username</Text>
+
                 <TextInput 
                     style={styles.input}
                     placeholder='Username'
@@ -81,7 +87,14 @@ export default function Login(props){
                     returnKeyType='next'
                 /> 
 
-                <Text>Password</Text>
+                <Text style={{
+                        color: textColor,
+                        fontSize: 26,
+                        margin: 3,
+                        marginTop: 20,
+                    }}
+                >Password</Text>
+
                 <TextInput
                     style={styles.input}
                     placeholder='Password'
@@ -95,22 +108,50 @@ export default function Login(props){
                     onSubmitEditing={handleLogIn}
 
                 />
-                <View style={styles.button}>
-                    <Button
-                        
+                <View style={{
+                        flex: -1,
+                        alignItems: 'center',
+                        marginVertical: 15,
+                        marginTop: 25,
+                    }}
+                ><TouchableOpacity
                         onPress={handleLogIn}
-                        
-                        title='Log In'
-                        accessibilityLabel='Log In Button'
-                    />
+                        style={{
+                            backgroundColor: bgSecColor,
+                            borderWidth: 1,
+                            borderRadius: 20,
+                            borderColor: hiColor,
+                            width: 125,
+                            height: 50,
+                            marginTop: 10,
+                        }}
+                    
+                    >
+                        <Text style={{
+                                color: textColor,
+                                fontSize: 28,
+                                textAlign: 'center', 
+                                padding: 5
+                            }}
+                        >Login</Text>
+
+                    </TouchableOpacity>
                 </View>
                 <View>
                     <View style={styles.inline}>
-                        <Text>Don't have an accounct? </Text>
+                        <Text style={{
+                                color: textColor,
+                                
+                            }}
+                        >Don't have an accounct? </Text>
                         <TouchableOpacity
                                 onPress={handleSignUp}
                                 accessibilityLabel='Sign Up Button'
-                            ><Text>Sign up.</Text>
+                            ><Text style={{
+                                    color: textColor,
+                                    
+                                }}
+                            >Sign up.</Text>
                         </TouchableOpacity>
                     </View>
                 </View>

@@ -8,7 +8,7 @@ import Main from './Main';
 import Matches from './Matches';
 import Account from './Account';
 
-import styles from "../Styles";
+import Styles, { bgColor, bgSecColor, hiColor, textColor, tabTextColor } from "../Styles";
 import { getProfile } from '../services/profileService';
 import Likes from './Likes';
 
@@ -17,11 +17,30 @@ const Tabs = createBottomTabNavigator();
 export default function Home(homeProps){
 
     return(
-        <Tabs.Navigator >
+        <Tabs.Navigator
+            screenOptions={{
+                tabBarActiveTintColor: hiColor,
+                tabBarInactiveTintColor: tabTextColor,
+                tabBarActiveBackgroundColor: bgSecColor,
+                tabBarInactiveBackgroundColor: bgColor,
+                tabBarStyle: [
+                  {
+                    display: "flex",
+                    borderTopColor: hiColor
+                  },
+                  null
+                ]
+              }}
+            
+            
+                
+          
+        >
             <Tabs.Screen 
                 name='Main'
                 options={{
-                    headerShown: false
+                    headerShown: false,
+                    
                 }}>
 
                 {props => <Main {...props} 
@@ -30,6 +49,7 @@ export default function Home(homeProps){
                             setResults={homeProps.setResults}
                             person={homeProps.person}
                             setPerson={homeProps.setPerson}
+                            
                 />}
             </Tabs.Screen>
 
@@ -44,6 +64,7 @@ export default function Home(homeProps){
                             setProfile={homeProps.setProfile}
                             person={homeProps.person}
                             setPerson={homeProps.setPerson}
+                            setUpdate={homeProps.setUpdate}
                             navigation={homeProps.navigation}
                 />}
             </Tabs.Screen>
@@ -66,7 +87,7 @@ export default function Home(homeProps){
             <Tabs.Screen 
                 name='Account' 
                 options={{
-                    headerShown: false
+                    headerShown: false,
                 }}
                 children={() => 
                 <Account 
@@ -75,7 +96,9 @@ export default function Home(homeProps){
                     navigation={homeProps.navigation}
                     userState={homeProps.userState}
                     setUserState={homeProps.setUserState}
-                    handleLogout={homeProps.handleLogout} 
+                    setUpdate={homeProps.setUpdate}
+                    handleLogout={homeProps.handleLogout}
+                     
                 />
             }/>
         </Tabs.Navigator>

@@ -4,7 +4,7 @@ import {
   Button, TouchableOpacity,
   Dimensions, Animated, Panresponder
                                       } from 'react-native';
-import Styles from '../Styles';
+import Styles, { bgColor, bgSecColor, hiColor, textColor} from '../Styles';
 
 //Services
 import { dislikeUser, likeUser } from '../services/profileService';
@@ -19,8 +19,6 @@ import five from '../assets/testing-images/low-poly-elefant-low-poly-art.jpg';
 
 
 export default function Main(props) {
-  console.log('main props')
-  console.log(props)
 
   const SCREEN_HEIGHT = Dimensions.get('window').height;
   const SCREEN_WIDTH = Dimensions.get('window').width;
@@ -60,7 +58,7 @@ export default function Main(props) {
     if(props.results){
       if(props.results.length >= 1){
         return props.results.map((prof, i) => {
-            console.log(prof);
+           
             return(<Animated.View
               key={i}
               
@@ -70,15 +68,37 @@ export default function Main(props) {
                   width: SCREEN_WIDTH,
                   position: 'absolute',
                   padding: 5,
+                  backgroundColor: bgColor
                   
                 }
               ]}
             >
-              <View  style={Styles.mainContainer}>
+              <View  style={{
+                        flex: 1,
+                        flexDirection: 'column-reverse',
+                        backgroundColor: bgSecColor,
+                        borderRadius: 20,
+                        marginBottom: 40,
+                        
+                      }}
+              >
                   <TouchableOpacity onPress={() => toThisProfile(prof)}>
-                    <Text>{prof.first} {prof.age}</Text>
-                    <Text>{prof.education}</Text>
-                    <Text>{prof.job}</Text>
+                      <Text>
+                        <Text style={{
+                                color: textColor,
+                                fontSize: 48,
+                                marginHorizontal: 20,
+                                
+                              }}
+                        >{prof.first}</Text>
+
+                        <Text style={{
+                                color: textColor,
+                                fontSize: 36,
+                                
+                              }}
+                        >{prof.age}</Text>
+                      </Text>
                   </TouchableOpacity>
               </View>
               {/*For when I have images working on mongodb */}
@@ -99,15 +119,19 @@ export default function Main(props) {
         });
       } else {
         return(
-          <View style={{flex: 1, 
+          <View style={{flex: -1, 
                         alignItems: 'center',
                         height: SCREEN_HEIGHT - 205,
                         width: SCREEN_WIDTH,
+                        alignSelf: 'center',
                         position: 'absolute',
-                        padding: 5,
+                        margin: 5,
+                        borderRadius: 20,
+                        backgroundColor: bgSecColor
                       }}>
 
               <Text style={{
+                        color: textColor,
                         textAlign: 'center',
                         marginVertical: 'auto',
                         fontSize: 24
@@ -121,7 +145,7 @@ export default function Main(props) {
 
 
   return (
-    <View style={{ flex: 1, backgroundColor: '#fff' }}>
+    <View style={{ flex: 1, backgroundColor: bgColor }}>
       <View style={{ height: 3 }} />
       <View style={{ flex: 1}}>
           {renderFilterProfiles()}
@@ -147,10 +171,16 @@ export default function Main(props) {
               height: 100,
               width: 100,
               borderRadius: 50,
-              borderWidth: 1,
               margin: 3,
+              backgroundColor: bgSecColor
               // backgroundColor: '#DC143C'
-            }}><Text style={Styles.cenText}>Red</Text></TouchableOpacity>
+            }}><Text style={{
+                      textAlign: 'center',
+                      marginVertical: 'auto',
+                      color: textColor,
+                      fontSize: 24
+                    }}
+            >Pass</Text></TouchableOpacity>
 
         </View>
         <View style={{
@@ -165,10 +195,17 @@ export default function Main(props) {
               height: 100,
               width: 100,
               borderRadius: 50,
-              borderWidth: 1,
               margin: 3,
+              backgroundColor: bgSecColor
               // backgroundColor: '#32CD32'
-            }}><Text style={Styles.cenText}>Green</Text></TouchableOpacity>
+            }}>
+              <Text style={{
+                      textAlign: 'center',
+                      marginVertical: 'auto',
+                      color: hiColor,
+                      fontSize: 24
+                    }}
+              >Like</Text></TouchableOpacity>
         </View>
 
       </View>

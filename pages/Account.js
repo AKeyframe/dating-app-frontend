@@ -1,17 +1,14 @@
 import React, { useState } from 'react';
 import {View, StyleSheet, Text, TextInput, Button, TouchableOpacity} from 'react-native';
-import Styles from '../Styles';
+import Styles, {bgColor, bgSecColor, hiColor, textColor} from '../Styles';
 
 
 
 export default function Account(props){
-    console.log(props);
+    
     function toProfile(){
-        console.log(props);
         props.navigation.push('Profile', );//{profile: props.profile}
     
-        //to pass props
-        //props.navigation.push('SignUp', {handleSignupOrLogin: handleSignupOrLogin()});
     }
     
     function toEdit(){
@@ -27,29 +24,31 @@ export default function Account(props){
     return(
         <View style={{
                 flex: 1,
-                backgroundColor: '#fff' 
+                backgroundColor: bgColor 
         
         }}>
             <View style={{
                     width: 200,
                     height: 200,
-                    borderWidth:1,
                     borderRadius: 25,
                     alignSelf: 'center',
                     justifyContent: 'center',
                     marginTop: 20,
-                    backgroundColor: '#fff'
+                    backgroundColor: bgSecColor
                 }}
             >
                 <View style={{justifyContent: 'center', alignItems: 'center'}}>
-                    <Text style={{textAlign: 'center'}}>Thumbnail</Text>
+                    <Text style={{color: textColor, textAlign: 'center'}}>Thumbnail</Text>
                 </View>
             </View>
       
             <View style={{
-                    flex: 1, 
+                    flex: -1, 
                     alignItems: 'center',
                     justifyContent: 'center',
+                   
+                    marginHorizontal: 60,
+                    marginTop: 20
                 }}>
                 
 
@@ -72,7 +71,11 @@ export default function Account(props){
                 </TouchableOpacity>
 
                 <TouchableOpacity onPress={props.handleLogout} style={Styles.toButton}> 
-                    <Text style={Styles.buttonText}>Sign Out</Text>
+                    <Text style={{
+                            fontSize: 32,
+                            color: hiColor
+                        }}
+                    >Sign Out</Text>
                 </TouchableOpacity>
             </View>
         </View>

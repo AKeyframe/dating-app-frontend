@@ -19,9 +19,11 @@ import SignUp from './pages/SignUp';
 import Profile from './pages/Profile';
 import Person from './pages/Person';
 import Edit from './pages/Edit';
+import Chat from './pages/Chat';
 import Settings from './pages/Settings';
 
-
+//Style
+import Styles, {bgColor, hiColor, textColor} from './Styles';
 
 const AuthStack = createStackNavigator();
 
@@ -30,30 +32,20 @@ export default function App() {
   const [profile, setProfile] = useState();
   const [results, setResults] = useState();
   const [header, setHeader] = useState(checkHeader());
+  const [update, setUpdate] = useState(0);
 
   const [person, setPerson] = useState(0);
 
     useEffect(async () => {
         //if the user is logged in
-        console.log('hi')
-        console.log(person)
         if(userState.user){
           //Get the Users profile and set it to state
           let p = await getProfile();          
           let r = await getFilteredProfiles(p[0]._id);
-          console.log('=================')
-          console.log(p)
-          console.log(r)
-          if(!profile){
-            setProfile(p);
-          }
-          if(!results){
-            setResults(r);
-            
-
-          }
+          setProfile(p);
+          setResults(r);
         }
-    }, [userState]);
+    }, [userState, update]);
 
 
   function handleSignupOrLogin(){
@@ -74,6 +66,11 @@ export default function App() {
             name='Login'
             options={{
               headerShown: header,
+              headerTintColor: hiColor,
+              headerStyle: {
+                borderBottomColor: hiColor,
+                backgroundColor: bgColor
+              },
               headerTitle: (props) => <AccountTitle {...props} />
               
             }}>
@@ -86,6 +83,7 @@ export default function App() {
                         setResults={setResults}
                         person={person}
                         setPerson={setPerson}
+                        setUpdate={setUpdate}
                         handleSignupOrLogin={handleSignupOrLogin}
                       />}
             
@@ -95,6 +93,11 @@ export default function App() {
             name='SignUp' 
             component={SignUp} 
             options={{
+              headerTintColor: hiColor,
+              headerStyle: {
+                borderBottomColor: hiColor,
+                backgroundColor: bgColor
+              },
               headerTitle: (props) => <AccountTitle {...props} />
             }}
           />
@@ -102,6 +105,11 @@ export default function App() {
           <AuthStack.Screen 
             name='Profile'
             options={{
+              headerTintColor: hiColor,
+              headerStyle: {
+                borderBottomColor: hiColor,
+                backgroundColor: bgColor
+              },
               headerTitle: (props) => <AccountTitle {...props} />
               
             }}>
@@ -110,8 +118,28 @@ export default function App() {
           </AuthStack.Screen>
 
           <AuthStack.Screen 
+            name='Chat'
+            options={{
+              headerTintColor: hiColor,
+              headerStyle: {
+                borderBottomColor: hiColor,
+                backgroundColor: bgColor
+              },
+              headerTitle: (props) => <AccountTitle {...props} />
+              
+            }}>
+            {props => <Chat />}
+            
+          </AuthStack.Screen>
+
+          <AuthStack.Screen 
             name='Person'
             options={{
+              headerTintColor: hiColor,
+              headerStyle: {
+                borderBottomColor: hiColor,
+                backgroundColor: bgColor
+              },
               headerTitle: (props) => <AccountTitle {...props} />
               
             }}>
@@ -128,22 +156,33 @@ export default function App() {
           <AuthStack.Screen 
             name='Edit'
             options={{
+              headerTintColor: hiColor,
+              headerStyle: {
+                borderBottomColor: hiColor,
+                backgroundColor: bgColor
+              },
               headerTitle: (props) => <AccountTitle {...props} />
               
             }}>
-            {props => <Edit {...props} profile={profile} />}
+            {props => <Edit {...props} profile={profile} setUpdate={setUpdate}/>}
             
           </AuthStack.Screen>
 
           <AuthStack.Screen 
             name='Settings'
             options={{
+              headerTintColor: hiColor,
+              headerStyle: {
+                borderBottomColor: hiColor,
+                backgroundColor: bgColor
+              },
               headerTitle: (props) => <AccountTitle {...props} />
               
             }}>
             {props => <Settings {...props} 
                         profile={profile} 
-                        setProfile={setProfile}/>}
+                        setProfile={setProfile}
+                        setUpdate={setUpdate}/>}
             
           </AuthStack.Screen>
 
